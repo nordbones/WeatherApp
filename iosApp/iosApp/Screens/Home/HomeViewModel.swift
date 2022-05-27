@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import shared
+
+class HomeViewModel :ObservableObject{
+    private let sharedViewModel = appModule.weatherSharedViewModel
+    
+    @Published var state = ViewState<Weather>(isLoading: false, data:nil, error:nil)
+    
+    func getWeather(){
+        sharedViewModel.getWeather().collectCommon { [self] newState in
+            self.state = newState!
+        }
+    }
+}
