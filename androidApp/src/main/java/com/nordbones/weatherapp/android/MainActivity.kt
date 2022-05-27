@@ -1,20 +1,19 @@
 package com.nordbones.weatherapp.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.nordbones.weatherapp.Greeting
-import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.nordbones.kmmweather.android.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-fun greet(): String {
-    return Greeting().greeting()
-}
-
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            AppTheme {
 
-        val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
+            }
+        }
     }
 }
