@@ -64,4 +64,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.41")
     implementation("com.google.dagger:hilt-android:2.41")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("androidx.navigation:navigation-compose:2.4.2")
+    implementation ("com.google.accompanist:accompanist-navigation-animation:0.24.9-beta")
 }
