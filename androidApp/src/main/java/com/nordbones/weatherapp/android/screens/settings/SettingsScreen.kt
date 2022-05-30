@@ -1,56 +1,57 @@
 package com.nordbones.weatherapp.android.screens.settings
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.nordbones.weatherapp.android.utils.TextFieldState
 import com.nordbones.weatherapp.viewmodel.ViewState
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel) {
+fun SettingsScreen(viewModel: SettingsViewModel, navController: NavController) {
     val locationFieldState by viewModel.locationFieldState.collectAsState(TextFieldState.empty)
     val locationState by viewModel.locationState.collectAsState(initial = ViewState())
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        TextField(
-            value = locationFieldState.text,
-            onValueChange = viewModel::onLocationChange,
-            placeholder = { Text("Location") },
-            isError = locationFieldState.error,
-            modifier = Modifier.fillMaxWidth()
-        )
 
-        Button(onClick = viewModel::searchLocation) {
-            Text(text = "Search")
-        }
-
-        when {
-            locationState.isLoading -> CircularProgressIndicator()
-            locationState.data != null -> locationState.data?.let { locations ->
-                LazyColumn {
-                    locations.list.forEach { location ->
-                        item {
-                            Text(
-                                text = "${location.name}, ${location.region}, ${location.country}",
-                                modifier = Modifier.clickable {
-                                    viewModel.saveLocation(location)
-                                })
-                        }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(text = "Settings") },
+                navigationIcon = {
+                    ElevatedButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = null
+                        )
                     }
-                }
-            }
-            locationState.error != null -> Text("Error: ${locationState.error?.message}")
+                },
+            )
         }
+    ) { paddingValues ->
+        SettingsScreenContent(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                )
+        )
     }
+
+}
+
+@Composable
+fun SettingsScreenContent(
+    modifier: Modifier,
+) {
+
 }
