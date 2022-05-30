@@ -23,9 +23,20 @@ struct HomeScreen: View {
     
     var body: some View{
         VStack{
+           HomeScreenContent(state: state)
+        }.toolbar {
             NavigationLink(destination: SettingsScreen()){
-                Label("Settings", systemImage: "settings")
+                Label("Settings", systemImage: "gear")
             }
         }
+    }
+}
+
+
+struct HomeScreenContent : View {
+    let state : ViewState<Weather>
+    
+    var body: some View {
+        Text("Content")
     }
 }
