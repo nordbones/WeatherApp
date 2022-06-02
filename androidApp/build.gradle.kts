@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
@@ -45,7 +44,6 @@ dependencies {
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.material3:material3:1.0.0-alpha12")
     implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
@@ -66,4 +64,5 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation ("androidx.navigation:navigation-compose:2.4.2")
     implementation ("com.google.accompanist:accompanist-navigation-animation:0.24.9-beta")
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.24.9-beta")
 }
