@@ -1,7 +1,9 @@
 package com.nordbones.weatherapp.data.dto
 
 import com.nordbones.weatherapp.utils.EMPTY
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherDTO(
     val description: String,
     val windSpeedInMpH: Double,
