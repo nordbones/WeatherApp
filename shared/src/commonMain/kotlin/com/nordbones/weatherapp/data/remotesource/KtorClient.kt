@@ -22,7 +22,7 @@ class KtorClient {
                 coerceInputValues = true
             })
         }
-        install(Logging){
+        install(Logging) {
             logger = Logger.DEFAULT
             level = LogLevel.ALL
         }
@@ -34,14 +34,14 @@ class KtorClient {
         parameter("query", value)
     }.body()
 
-    suspend fun getWeather(longitude: Double,latitude:Double): WeatherResponse = client.get {
-        headers{
+    suspend fun getWeather(longitude: Double, latitude: Double): WeatherResponse = client.get {
+        headers {
             append("x-api-key", WEATHER_API_KEY)
         }
         url(GET_WEATHER)
-        parameter("lat",latitude)
-        parameter("lng",longitude)
-    }.also { println("-->> $it") }.body()
+        parameter("lat", latitude)
+        parameter("lng", longitude)
+    }.body()
 
     private companion object Routes {
         private const val BASE_URL_WEATHER = " https://api.ambeedata.com/weather/latest"
