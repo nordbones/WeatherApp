@@ -18,7 +18,7 @@ class LocationRepositoryImpl(
     override suspend fun searchLocation(value: String): Flow<ResultWrapper<LocationsDTO>> =
         flow {
             emit(
-                client.searchLocation(value = value).asLocationsDTO().also(::println)
+                client.searchLocation(value = value).asLocationsDTO()
             )
         }.asResult()
 
