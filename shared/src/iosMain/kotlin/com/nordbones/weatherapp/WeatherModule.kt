@@ -22,7 +22,10 @@ class WeatherModule(context: SPreferences) {
     }
 
     private val weatherRepository: WeatherRepository by lazy {
-        WeatherRepositoryImpl(client = ktorClient)
+        WeatherRepositoryImpl(
+            client = ktorClient,
+            preferencesStorage = preferencesStorage
+        )
     }
 
     private val locationRepository: LocationRepository by lazy {

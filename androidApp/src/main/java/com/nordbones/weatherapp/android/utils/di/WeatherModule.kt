@@ -53,15 +53,22 @@ class WeatherModule {
     fun provideLocationRepository(
         client: KtorClient,
         preferencesStorage: PreferencesStorage
-    ): LocationRepository = LocationRepositoryImpl(
-        client = client,
-        preferencesStorage = preferencesStorage
-    )
+    ): LocationRepository =
+        LocationRepositoryImpl(
+            client = client,
+            preferencesStorage = preferencesStorage
+        )
 
     @Singleton
     @Provides
-    fun provideWeatherRepository(client: KtorClient): WeatherRepository =
-        WeatherRepositoryImpl(client = client)
+    fun provideWeatherRepository(
+        client: KtorClient,
+        preferencesStorage: PreferencesStorage
+    ): WeatherRepository =
+        WeatherRepositoryImpl(
+            client = client,
+            preferencesStorage = preferencesStorage
+        )
 
     @Singleton
     @Provides

@@ -5,5 +5,9 @@ import com.nordbones.weatherapp.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
-    suspend fun getWeather( longitude: Double,latitude: Double,): Flow<ResultWrapper<WeatherDTO>>
+    suspend fun getWeatherFromLocalStore(longitude: Double, latitude: Double): Flow<ResultWrapper<WeatherDTO>>
+
+    suspend fun saveWeatherToLocalStore(weather: WeatherDTO)
+
+    suspend fun getWeatherFromLocalStore(): WeatherDTO
 }
