@@ -31,7 +31,7 @@ data class Data(
     @SerialName("time")
     val time: Int,
     @SerialName("uvIndex")
-    val uvIndex: Double,
+    val uvIndex: Double? =null,
     @SerialName("visibility")
     val visibility: Double,
     @SerialName("windBearing")
