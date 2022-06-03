@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Settings</string>
+    <string name="loading">Loading…</string>
+    <string name="error_we_re_sorry">We\'re sorry…</string>
+    <string name="location">Location</string>
+    <string name="pressure">Pressure:</string>
+    <string name="millibars">millibars</string>
+    <string name="humidity">Humidity:</string>
+    <string name="percents">%</string>
+    <string name="visibility">Visibility:</string>
+    <string name="miles">miles</string>
+    <string name="wind">Wind:</string>
+    <string name="mph">MpH</string>
+</resources>
