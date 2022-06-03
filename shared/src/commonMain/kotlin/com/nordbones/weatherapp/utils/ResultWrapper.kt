@@ -1,9 +1,6 @@
 package com.nordbones.weatherapp.utils
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 
 sealed interface ResultWrapper<out T> {
     data class Success<T>(val data: T) : ResultWrapper<T>
@@ -30,6 +27,8 @@ inline fun <T, R> ResultWrapper<T>.onError(map: () -> R): ResultWrapper<R> {
 }
 
 fun <T> Flow<T>.asResult(): Flow<ResultWrapper<T>> =
-    this.map<T, ResultWrapper<T>> { ResultWrapper.Success(it) }
-        .onStart { emit(ResultWrapper.Loading) }
+    this.transform {
+        emit(ResultWrapper.Loading)
+        emit(ResultWrapper.Success(it))
+    }
         .catch { emit(ResultWrapper.Error(it)) }
