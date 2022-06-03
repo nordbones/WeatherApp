@@ -16,20 +16,21 @@ import com.nordbones.weatherapp.android.R
 import com.nordbones.weatherapp.viewmodel.ViewState
 
 @Composable
-fun <T> ViewState<T>.handle(
+fun <T> ViewState<T>.Handle(
     onLoading: @Composable () -> Unit = { DefaultLoading() },
     onError: @Composable (Throwable) -> Unit = { DefaultError(it) },
     onLoaded: @Composable (T) -> Unit
 ) =
     when {
-        this.isLoading -> onLoading.invoke().also { println("--->>> Loading") }
-        this.data != null -> onLoaded.invoke(this.data!!).also { println("--->>> Loaded") }
-        this.error != null -> onError.invoke(this.error!!).also { println("--->>> Error") }
+        isLoading -> onLoading.invoke()
+        data != null -> onLoaded.invoke(data!!)
+        error != null -> onError.invoke(error!!)
+        error != null && data != null -> onLoaded.invoke(data!!)
         else -> Unit
     }
 
 @Composable
- fun DefaultLoading() {
+private fun DefaultLoading() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
