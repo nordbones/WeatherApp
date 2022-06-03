@@ -17,12 +17,11 @@ class LocationSharedViewModel(
     private val getLocationUseCase: GetLocationUseCase
 ) {
     fun searchLocation(location: String): CommonFlow<ViewState<Locations>> = flow {
-        emit(ViewState<Locations>(isLoading = true))
         searchLocationUseCase.invoke(location = location).collect { result ->
             when (result) {
-                is ResultWrapper.Error -> emit(ViewState<Locations>(error = result.exception))
                 ResultWrapper.Loading -> emit(ViewState<Locations>(isLoading = true))
                 is ResultWrapper.Success -> emit(ViewState<Locations>(data = result.data))
+                is ResultWrapper.Error -> emit(ViewState<Locations>(error = result.exception, data = result.defaultData))
             }
         }
     }.asCommonFlow()
