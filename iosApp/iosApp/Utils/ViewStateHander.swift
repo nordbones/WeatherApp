@@ -44,6 +44,10 @@ struct ViewStateHandler<D,T:ViewState<D>,Content:View,Error:View,Loading:View> :
             error(state.error!.message!)
         }
         
+        if state.error != nil && state.data != nil {
+            content(state.data!)
+        }
+        
     }
 }
 
