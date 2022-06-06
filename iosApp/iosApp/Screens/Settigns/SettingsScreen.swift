@@ -10,31 +10,27 @@ import Foundation
 import SwiftUI
 import shared
 
-struct SettingsScreen: View{
+struct SettingsScreen: View {
     
     @ObservedObject var viewModel = SettingsViewModel()
-    @State private var location: String = String.EMPTY
     
     private var state: ViewState<Locations> {
-        get{
+        get {
             return viewModel.state
         }
     }
     
     var body: some View{
-//         VStack{
-//             HStack{
-//             TextField(
-//                     "Location",
-//                     text: $location
-//                 )
-//                 Button("Search") {
-//                     viewModel.searchLocation(value: location)
-//                 }
-//             }
-//
-//         }.navigationTitle("Settings")
-        SettingScreenContent(state: state).navigationTitle("Settings")
+        SettingScreenContent(state: state, location: $viewModel.location, onClearLocation: {
+            viewModel.onLocationClear()
+        }, onSaveLocation: { location in
+            viewModel.saveLocation(location: location)
+        })
+        .onAppear(){
+            viewModel.getLocation()
+        }
+        .frame(width: .infinity, height: .infinity)
+        .navigationTitle("Settings")
     }
 }
 
@@ -42,12 +38,40 @@ struct SettingsScreen: View{
 struct SettingScreenContent: View {
     
     let state: ViewState<Locations>
+    var location:Binding<String>
+    let onClearLocation:()->Void
+    let onSaveLocation:(Location)->Void
+    
     
     var body: some View{
-        Text("Content")
-        
-      
+        VStack {
+            HStack {
+                TextField("Location",text: location)
+                Image(systemName: "clear").onTapGesture {
+                    onClearLocation()
+                }
+            }
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 10)
+                .stroke(lineWidth: 2).foregroundColor(Color.black))
+            .padding()
+            
+            ViewStateHandler(state: state) { locations in
+                List(locations.list) { location in
+                    Button(location.getFullTitle()) {
+                        onSaveLocation(location)
+                    }
+                }
+            } error: { errorMessage in
+                DefaultErrorView(errorMessage: errorMessage)
+            } loading: {
+                DefaultLoadingView()
+            }
+            Spacer()
+        }
     }
 }
 
-
+extension Location : Identifiable {
+    
+}
