@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import shared
 
 struct MainWeatherWidget : View {
     let weather:Weather
